@@ -1,5 +1,5 @@
 var express = require("express");
-var rutas = require("./rutas/rutas")
+var rutas = require("./router")
 var app = express();
 const path = require('path');
 
