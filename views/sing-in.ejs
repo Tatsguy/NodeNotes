@@ -10,8 +10,8 @@
         <meta name="keywords" content="sing-in, registrarse">
 
         <title>Remember - Registrarse</title>
-        <link rel="stylesheet" href="css/sign.css">
-        <link rel="shortcut icon" href="images/logoV.png" type="image/x-icon">
+        <link rel="stylesheet" href="/static/css/sign.css">
+        <link rel="shortcut icon" href="/static/images/logoV.png" type="image/x-icon">
     </head>
     <body>
         <!--REGISTRARSE-->
@@ -19,16 +19,16 @@
             <div class="contenido">
                 <a id="back-button" href="/">&lt;</a>
                 <div class="imagen">
-                    <img src="images/index/Logo.png" id="logo" alt="">
+                    <img src="/static/images/index/Logo.png" id="logo" alt="">
                 </div>
                 <div class="formulario">
-                    <form action="/save" method="post" name="myForm" onsubmit="return validate();">
+                    <form action="/users/Crear" method="post" onsubmit="return validate();">
                         <div id="form-container">
                             <div class="flex-column">
                                 <input type="text" placeholder="Nombre(s)" name="nombre" id="Nombre">
                                 <span class="noVisible" id="spanNombre">Ingrese su nombre(s)</span>
 
-                                <input type="text" placeholder="Usuario" name="username" id="Usuario">
+                                <input type="text" placeholder="Usuario" name="usuario" id="Usuario">
                                 <span class="noVisible" id="spanUsuario">Ingrese un usuario</span>
 
                                 <input type="email" placeholder="Dirección Email" name="email" id="Email">
@@ -49,6 +49,6 @@
                 </div>
             </div>
         </div>
-        <script src="js/sign.js"></script>
+        <script src="static/js/sign.js"></script>
     </body>
 </html>

@@ -11,8 +11,8 @@
         <meta name="keywords" content="Login, Iniciar sesión">
 
         <!--ESTILOS-->
-        <link rel="stylesheet" href="css/login.css">
-        <link rel="icon" href="images/logoV.png">
+        <link rel="stylesheet" href="/static/css/login.css">
+        <link rel="shortcut icon" href="/static/images/logoV.png" type="image/x-icon">
         <title>Remember - Inicar Sesión</title>
     </head>
     <body>
@@ -21,15 +21,15 @@
             <div class="row">
                 <a href="/" id="regresar">&lt;</a>
                 <div class="columna">
-                    <form action="/Notas" method="post" name="myForm" onsubmit="return validate();">      
-                        <img src="images/index/Logo.png" alt="">
+                    <form action="/users/Login" method="post" name="myForm" onsubmit="return validate();">      
+                        <img src="/static/images/index/Logo.png" alt="">
                         <div class="usuario-caja">
-                            <input type="text" name="Usuario" placeholder="Ingrese su usuario" id="usuario"> <br>
+                            <input type="text" name="user" placeholder="Ingrese su usuario" id="usuario"> <br>
                             <span class="noVisible" id="spanUsuario">Ingrese su usuario</span>
                         </div>
 
-                        <div class="contraseña-caja">
-                            <input type="password" name="Password" placeholder="Ingrese su contraseña" id="password"> <br>
+                        <div class="contrase�a-caja">
+                            <input type="password" name="password" placeholder="Ingrese su contraseña" id="password"> <br>
                             <span class="noVisible" id="spanPassword">Ingrese su contraseña</span>
                         </div>
 
@@ -37,11 +37,11 @@
                             <button type="submit">Ingresar</button>
                             <p style="margin: 10px 0; font-size: 14px">¿No tienes cuenta? <a style="text-decoration: none; color: var(--boton-azul)" href="sing-in.jsp">Registrate</a></p>
                         </div>
-                        <span class="" style="margin: auto; right: 0; left: 0; bottom: 0;" id="spanData">Los datos no coinciden con ningun registro.</span>
+                        <span class="" style="margin: auto; right: 0; left: 0; bottom: 0;" id="spanData"></span>
                     </form>
                 </div>
             </div>
         </div>
-        <script src="js/login.js"></script>
+        <script src="/static/js/login.js"></script>
     </body>
 </html>

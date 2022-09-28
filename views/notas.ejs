@@ -11,8 +11,8 @@
         <meta name="keywords" content="Notas, Remember, Recordatorios">
 
         <!--ESTILOS-->
-        <link rel="icon" href="/images/logoV.png">
-        <link rel="stylesheet" href="css/notes.css">
+        <link rel="shortcut icon" href="/static/images/logoV.png" type="image/x-icon">
+        <link rel="stylesheet" href="/static/css/notes.css">
         <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
         <title>Remember - Notas</title>
     </head>
@@ -22,9 +22,9 @@
             <!--SIDEBAR--------------------------------------------------------------->
             <div class="notes__sidebar">
                 <div class="user">
-                    <img class="user-avatar" src="images/notas/usuario-icono.png"/>
+                    <img class="user-avatar" src="/static/images/notas/usuario-icono.png"/>
                     <div id="nickname">
-                        <p id="user">Bienvenido Usuario</p>
+                        <p id="user">Bienvenido <%=datos[0].usuario%></p>
                         <p class="tool-name" id="updateUser">Ver perfil</p>
                     </div>
                 </div>
@@ -38,10 +38,10 @@
                         </a>
                     </div>
                     <div class="tool">
-                        <a href="/Administrador"><i class="ri-user-settings-line"></i>
+                        <a href="/users/Admin"><i class="ri-user-settings-line"></i>
                             <p class="tool-name">Administración</p>
                         </a>
-                    </div>                                   
+                    </div>                                 
                     <div class="tool">
                         <a href="/"><i class="ri-door-open-line"></i>
                             <p class="tool-name">Cerrar sesión</p>
@@ -95,15 +95,15 @@
                     <form action="UpdateUser" id="userForm" method="post" class="form" style="color:black;">
                         <p class="instruction">Foto:</p>
                         <input type="file" id="myfile" accept="image/png, .jpeg, .jpg" name="myfile">
-                        <input class="form-input" name="id" type="text" hidden="true" value="" id="txtId">
+                        <input class="form-input" name="id" type="text" hidden="true" value="<%=datos[0].idUser%>" id="txtId">
                         <p class="instruction">Usuario:</p>
-                        <input class="form-input" name="usuario" type="text" value="">
+                        <input class="form-input" name="usuario" type="text" value="<%=datos[0].usuario%>">
                         <p class="instruction">Email:</p>
-                        <input class="form-input" name="email" type="email" value="">
+                        <input class="form-input" name="email" type="email" value="<%=datos[0].email%>">
                         <p class="instruction">Nombre:</p>
-                        <input class="form-input" name="nombre" type="text" value="">
+                        <input class="form-input" name="nombre" type="text" value="<%=datos[0].nombre%>">
                         <p class="instruction">Password:</p>
-                        <input class="form-input" type="password" name="password" value="">
+                        <input class="form-input" type="password" name="password" value="<%=datos[0].password%>">
                         <div class="action-btns-container">
                             <button class="btn form-input" type="submit" id="modify">Modificar Cuenta</button>
                             <a class="btn form-input" id="delete" href="">Eliminar Cuenta</a>
@@ -119,14 +119,10 @@
             <!--CREACI�N DE NOTAS----------------------------------------------------->
             <div id="app">
                 <button class="add-note" type="button">+</button>
-                <script src="js/notes.js"></script>
+                <script src="../static/js/notes.js"></script>
                 <!--CICLO PARA CARGAR LAS NOTAS DE UN USUARIO EN ESPECIFICO-->
-                <script>
-                    //A�ADIR NOTA APARTIR DEL JSON GENERADO
-                    addNotesFromDB();
-                </script>
             </div>
         </div>
-        <script src="js/reloj.js"></script>
+        <script src="../static/js/reloj.js"></script>
     </body>
 </html>

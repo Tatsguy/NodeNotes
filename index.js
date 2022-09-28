@@ -1,18 +1,20 @@
 var express = require("express");
-var rutas = require("./router")
-var app = express();
-const path = require('path');
+var path = require("path");
+var userRoutes = require('./routes/users.js');
 
+const app = express()
+const PORT = 5000
+
+app.use('/static',express.static(path.join(__dirname,"/static")));
 app.set('view engine','ejs');
+app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-var puerto = process.env.PORT || 3000;
-app.use('/',rutas);
 
-app.use('/css',express.static(path.join(__dirname,"/static/css")));
-app.use('/images',express.static(path.join(__dirname,"/static/img")));
-app.use('/js',express.static(path.join(__dirname,"/static/js")));
+app.use('/users',userRoutes)
+app.get('/',(req,res)=> res.render('index'))
+app.get('/Login',(req,res)=> res.render('login'))
+app.get('/SignIn',(req,res)=> res.render('sing-in'))
 
-
-app.listen(puerto,()=>{
-    console.log(`Servidor en el puerto: ${puerto}`);
+app.listen(PORT,()=>{
+    console.log(`Server Running on port: http://localhost:${PORT}`)
 })

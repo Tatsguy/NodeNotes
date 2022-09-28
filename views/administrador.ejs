@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,26 +8,25 @@
         <meta name="copyright" content="Remember">
         <meta name="description" content="Interfaz de administración de usuarios">
         <meta name="keywords" content="Administrador, notas, Remember">
-        <link rel="shortcut icon" href="images/logoV.png" type="image/x-icon">
+        <link rel="shortcut icon" href="../static/images/logoV.png" type="image/x-icon">
         <title>Remember - Administrador</title>
-        <link rel="stylesheet" href="css/administrador.css">
+        <link rel="stylesheet" href="../static/css/administrador.css">
         <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     </head>
 
     <body>
         <div class="notes">
-
             <!--SIDEBAR-------------------------------------------------->
             <div class="notes__sidebar">
                 <div class="user">
-                    <img class="user-avatar" src="images/notas/usuario-icono.png"/>
+                    <img class="user-avatar" src="../static/images/notas/usuario-icono.png"/>
                 </div>
                 <div class="tools">
                     <button class="closeIcon">
                         <i class="ri-close-line"></i>
                     </button>
                     <div class="tool">
-                        <a href="index.html"><i class="ri-home-line"></i>
+                        <a href="/"><i class="ri-home-line"></i>
                             <p class="tool-name">Ir a inicio</p>
                         </a>
                     </div>
@@ -38,7 +36,7 @@
                         </a>
                     </div>
                     <div class="tool">
-                        <a href="cerrar-sesion.jsp"><i class="ri-door-open-line"></i>
+                        <a href="/"><i class="ri-door-open-line"></i>
                             <p class="tool-name">Cerrar sesión</p>
                         </a>
                     </div>
@@ -89,14 +87,14 @@
                                 </thead>
 
                                 <tbody>
-                                    <%results.forEach((user)=>{%>
-                                    <tr style="cursor: pointer;" data-href="/edit/<%=user.id%>">
-                                        <td><%=user.id%></td>
-                                        <td><%=user.nombre%></td>
-                                        <td><%=user.username%></td>
-                                        <td><%=user.email%></td>
-                                        <td><%=user.rol%></td>
-                                        <td><%=user.password%></td>
+                                    <% datos.forEach((dato) => {%>
+                                    <tr style="cursor: pointer;" data-href="">
+                                        <td><%=dato.idUser%></td>
+                                        <td><%=dato.nombre%></td>
+                                        <td><%=dato.usuario%></td>
+                                        <td><%=dato.email%></td>
+                                        <td><%=dato.rol%></td>
+                                        <td><%=dato.password%></td>
                                         <td><a style="color: red;" href="">BORRAR</a></td>
                                     </tr>
                                     <%})%>
@@ -111,7 +109,7 @@
                 </div>
             </div>
         </div>
-        <script src="js/reloj.js"></script>
+        <script src="../static/js/reloj.js"></script>
         <script>
             document.addEventListener("DOMContentLoaded", () => {
                 const rows = document.querySelectorAll("tr[data-href]");

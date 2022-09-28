@@ -1,8 +1,10 @@
 var updateForm = document.getElementById("update-form-container");
+
 var closeForm = document.getElementById("update-close-btn");
 closeForm.addEventListener("click", () => {
     updateForm.classList.toggle("activated");
 });
+
 var updateButton = document.getElementById("updateUser");
 updateButton.addEventListener("click", () => {
     updateForm.classList.toggle("activated");
@@ -14,15 +16,19 @@ closeForm.addEventListener("click", () => {
 });
 
 const idUser = document.getElementById("txtId").value;
+
 //Creación de notas
 const notesContainer = document.getElementById("app");
 const addNoteButton = notesContainer.querySelector(".add-note");
+
 getNotes().forEach((note) => {
     const noteElement = createNoteElement(note.id, note.content, note.color, note.fondo);
-    notesContainer.insertBefore(noteElement, addNoteButton);
+    notesContainer.insertBefore(noteElement, notesContainer);
 });
+
 //Añadir notas por medio del boton
 addNoteButton.addEventListener("click", () => addNote());
+
 //Obtener las notas
 function getNotes() {
     return JSON.parse(localStorage.getItem("stickynotes-notes") || "[]");
@@ -48,8 +54,8 @@ function createNoteElement(id, content, color, fondo) {
     //CREACIÓN DE IMAGENES
     const gotitaImg = document.createElement("img");
     const relojImg = document.createElement("img");
-    gotitaImg.setAttribute("src", "./images/notas/gotita-icono.jpg");
-    relojImg.setAttribute("src", "./images/notas/reloj-icono.png");
+    gotitaImg.setAttribute("src", "../static/images/notas/gotita-icono.jpg");
+    relojImg.setAttribute("src", "../static/images/notas/reloj-icono.png");
     caja.classList.add("funciones-nota");
     gotita.classList.add("icono-gotita");
     reloj.classList.add("icono-reloj");
@@ -65,16 +71,19 @@ function createNoteElement(id, content, color, fondo) {
     element.style.color = fondo;
     element.style.backgroundColor = color;
     noteContainer.style.backgroundColor = color;
+
     //EVENTOS LISTENER
     element.addEventListener("change", () => {
         updateNote(id, element.value);
     });
+
     element.addEventListener("dblclick", () => {
         const doDelete = confirm("¿Seguro que quieres borrar la nota?");
         if (doDelete) {
             deleteNote(id, noteContainer);
         }
     });
+
     //CLICK LISTENER DE EL ICONO DE LA GOTITA
     gotita.addEventListener("click", () => {
         var colorEscogido = cambiarColor();
@@ -90,10 +99,12 @@ function createNoteElement(id, content, color, fondo) {
         noteContainer.style.backgroundColor = "#"+colorEscogido;
         updateColor(id, colorEscogido, fondo);
     });
+
     //CLICK LISTENER DEL ICONO DE RELOJ
     reloj.addEventListener("click", () => {
         searchForm.classList.toggle("activated");
     });
+    
     //Adjuntar los elemenetos dentro del note-container
     noteContainer.classList.add("note-container");
     noteContainer.append(caja);
@@ -166,17 +177,12 @@ window.onbeforeunload = function (){
 
 //ENVIAR INFORMACIÓN CON AJAX
 var request;
-function sendInfo(id,contenido,color,fondo,id_user){
-    var url = "updateNotes.jsp?idNote="+id+"&contenido="+contenido+"&color="+color+"&fondo="+fondo+"&idUser="+id_user;
-    if (window.XMLHttpRequest) {
-        request = new XMLHttpRequest();
-    } else if (window.ActiveXObject) {
-        request = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-    try {
-        request.open("GET", url, true);
-        request.send();
-    } catch (e) {
-        alert("Unable to connect to server");
-    }
+function sendInfo(id,contenido,color,fondo,id_usuario){
+
+    let url = "/notas/operacion-notas?id_nota="+id+"&contenido="+contenido+"&color="+color+"&fondo="+fondo+"&id_usuario="+id_usuario;
+
+    const request = new XMLHttpRequest();
+    request.open("PUT",url,true);
+    request.send();
+    
 } 

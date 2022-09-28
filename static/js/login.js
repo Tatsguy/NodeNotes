@@ -1,7 +1,7 @@
 //SPANS
 var spanPassword = document.getElementById('spanPassword');
 var spanUsuario = document.getElementById('spanUsuario');
-
+var spanMensaje = document.getElementById('spanMensaje');
 //INPUTS
 var usuario = document.getElementById('usuario');
 var password = document.getElementById('password');

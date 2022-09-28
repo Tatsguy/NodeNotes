@@ -64,7 +64,8 @@ body{
     height: 50px;
     width: 50px;
     border-radius: 100%;
-    line-height: 45px;
+    line-height: 50px;
+    font-weight: bold;
     font-size: 40px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     margin: 7px 0 0 -7px;
