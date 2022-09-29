@@ -1,14 +1,20 @@
 var express = require("express");
-const { where } = require('sequelize');
 const router = express.Router()
 var {user} = require("../conexion")
+var {note} = require("../conexion")
 
 //Todas las rutas aqui comienzan con users
-router.get('/',(req,res)=>{
-    res.send('Hello')
+
+//Que hacer si se trata de entrar desde fuera
+router.get('/Crear',(req,res)=>{
+    res.redirect("/")
+})
+router.get('/Login',(req,res)=>{
+    res.redirect("/")
 })
 
-router.post('/Crear',(req,res)=>{
+//Metodos par
+router.post('/SignUp',async(req,res)=>{
     var userForm = {
         nombre : req.body.nombre,
         usuario: req.body.usuario,
@@ -16,36 +22,23 @@ router.post('/Crear',(req,res)=>{
         password: req.body.password,
         rol: req.body.rol
     }
-    user.create(userForm).then(()=>{
-        user.findAll
-        ({where:{
-            usuario:userForm.usuario,
-            password:userForm.password
-        }})
-        .then((datos)=>{
-            res.render('notas',{datos})
-        })
-    }).catch((err)=>{
-        console.log(err)
-    });
+    const usuario = await user.findOne({where: {usuario: userForm.usuario}});
+    const email = await user.findOne({where: {email: userForm.email}});
+    if(usuario){
+        res.render('sing-in',{mensaje:"Nombre de usuario ocupado"})
+    }else if(email){
+        res.render('sing-in',{mensaje:"Email ya registrado"})
+    }else{ 
+        await user.create(userForm)
+        const usuarioRegistrado = await user.findOne({where: {usuario: req.body.usuario}})
+        res.redirect('/users/Notas');
+    }
 })
 
-router.post('/Login',(req,res)=>{
-    user.findAll
-    ({where:{
-        usuario:req.body.user,
-        password:req.body.password
-    }})
-    .then((datos)=>{
-        if(datos.length === 0){
-            res.redirect('/')
-        }else{
-            res.render('notas',{datos})
-        }
-    })
-    .catch((err)=>{
-        console.error(err)
-    })
+router.post('/Login', async(req,res)=>{
+    const usuario = await user.findOne({where:{usuario:req.body.user,password:req.body.password}})
+    const notas = await note.findAll({where:{idUser:usuario.idUser}})
+    res.render('notas',{usuario,notas})
 })
 
 router.get('/Admin',(req,res)=>{
@@ -55,6 +48,19 @@ router.get('/Admin',(req,res)=>{
     .catch((err)=>{
         console.error("Error: "+err);
     })
+})
+
+router.get('/Notas',async(req,res)=>{
+    const usuario = {
+        idUser :21,
+        nombre: "Manolo",
+        usuario: "Pepito",
+        email: "sofiaaahernanadez70@gmail.com",
+        password: "1234",
+        rol: 2
+    }
+    let notas = await note.findAll({ where: {idUser: usuario.idUser}});
+    res.render('notas',{usuario,notas});
 })
 
 module.exports= router

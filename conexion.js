@@ -1,5 +1,6 @@
 var sequelize = require("sequelize");
 var usuarioModelo  = require("./models/usuario")
+var notasModelo = require("./models/notas")
 
 var conexion = new sequelize('nodeNotes','root','JevG0304',{
     host: 'localhost',
@@ -14,4 +15,5 @@ conexion.sync({force:false}).then(()=>{
 })
 
 var user = usuarioModelo(conexion);
-module.exports = {user}
+var note = notasModelo(conexion);
+module.exports = {user,note}

@@ -116,22 +116,22 @@ function createNoteElement(id, content, color, fondo) {
 function addNote() {
     const notes = getNotes();
     const noteObject = {
-        id_note: Math.floor(Math.random() * 100000) + "",
+        idNote: Math.floor(Math.random() * 100000) + "",
         contenido: "",
         color: "",
         fondo: ""
     };
-    const noteElement = createNoteElement(noteObject.id_note, noteObject.contenido, noteObject.color, noteObject.fondo);
+    const noteElement = createNoteElement(noteObject.idNote, noteObject.contenido, noteObject.color, noteObject.fondo);
     notesContainer.insertBefore(noteElement, addNoteButton);
     notes.push(noteObject);
     saveNotes(notes);
-    sendInfo(noteObject.id_note,noteObject.contenido,noteObject.color,noteObject.fondo,idUser);
+    sendInfo(noteObject.idNote,noteObject.contenido,noteObject.color,noteObject.fondo,idUser);
 }
 
 // AÑADE LAS NOTAS EXTREYENDOLAS DE LA BD
 function addNotesFromDB(noteObject) {
     const notes = getNotes();
-    const noteElement = createNoteElement(noteObject.id_note, noteObject.contenido, "#"+noteObject.color, noteObject.fondo);
+    const noteElement = createNoteElement(noteObject.idNote, noteObject.contenido, "#"+noteObject.color, noteObject.fondo);
     notesContainer.insertBefore(noteElement, addNoteButton);
     notes.push(noteObject);
     saveNotes(notes);
@@ -139,7 +139,7 @@ function addNotesFromDB(noteObject) {
 
 function updateNote(id, newContent) {
     const notes = getNotes();
-    const targetNote = notes.filter((note) => note.id_note == id)[0];
+    const targetNote = notes.filter((note) => note.idNote == id)[0];
     targetNote.contenido = newContent;
     saveNotes(notes);
     sendInfo(id,targetNote.contenido,targetNote.color,targetNote.fondo,idUser);
@@ -147,7 +147,7 @@ function updateNote(id, newContent) {
 
 function updateColor(id, color, fondo) {
     const notes = getNotes();
-    const targetNote = notes.filter((note) => note.id_note == id)[0];
+    const targetNote = notes.filter((note) => note.idNote == id)[0];
     targetNote.color = color;
     targetNote.fondo = fondo;
     saveNotes(notes);
@@ -155,7 +155,7 @@ function updateColor(id, color, fondo) {
 }
 
 function deleteNote(id, element) {
-    const notes = getNotes().filter((note) => note.id_note != id);
+    const notes = getNotes().filter((note) => note.idNote != id);
     saveNotes(notes);
     notesContainer.removeChild(element);
     sendInfo(id,null,null,null,0);
