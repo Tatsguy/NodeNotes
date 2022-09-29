@@ -35,7 +35,7 @@ router.post('/SignUp',async(req,res)=>{
     }
 })
 
-router.post('/Login', async(req,res)=>{
+router.post('/Notas', async(req,res)=>{
     const usuario = await user.findOne({where:{usuario:req.body.user,password:req.body.password}})
     const notas = await note.findAll({where:{idUser:usuario.idUser}})
     res.render('notas',{usuario,notas})
@@ -62,5 +62,25 @@ router.get('/Notas',async(req,res)=>{
     let notas = await note.findAll({ where: {idUser: usuario.idUser}});
     res.render('notas',{usuario,notas});
 })
+
+router.put('/operacion-notas', async (req,res) => {
+    let nota = req.query;
+    console.log('conectando con ajax: '+JSON.stringify(nota));
+    res.sendStatus(200); 
+
+    if(await note.findOne({where: {idNote: nota.idNote}})){
+        if(nota.idUser == 0){
+            await note.destroy({where: {idNote: nota.idNote}});
+            console.log('Nota destruida');
+        }else{
+            await note.update(nota, {where: {idNote: nota.idNote}});
+            console.log('Nota actualizada')
+        }
+    }
+    else{
+        console.log('Nota creada');
+        await note.create(nota);
+    }
+});
 
 module.exports= router

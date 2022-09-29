@@ -176,13 +176,9 @@ window.onbeforeunload = function (){
 };
 
 //ENVIAR INFORMACIÓN CON AJAX
-var request;
 function sendInfo(id,contenido,color,fondo,id_usuario){
-
-    let url = "/notas/operacion-notas?id_nota="+id+"&contenido="+contenido+"&color="+color+"&fondo="+fondo+"&id_usuario="+id_usuario;
-
+    let url = "/users/operacion-notas?idNote="+id+"&contenido="+contenido+"&color="+color+"&fondo="+fondo+"&idUser="+id_usuario;
     const request = new XMLHttpRequest();
     request.open("PUT",url,true);
-    request.send();
-    
+    request.send();    
 } 
