@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Editar Usuario</title>
+        <!--ESTILOS-->
+        <link rel="shortcut icon" href="/static/images/logoV.png" type="image/x-icon">
+        <link rel="stylesheet" href="/static/css/notes.css">
+    </head>
+    <body>
+        <!--Editar Perfil---------------------------------------------------------------->
+        <div class="update-form-container container activated" id="update-form-container">
+            <div class="form-container-inner" style="background-color: white; width: 50%; padding: 15px; border-radius: 10px">
+                <form action="UpdateUser" id="userForm" method="post" class="form" style="color:black;">
+                    <input class="form-input" name="admin" type="text" hidden="true" value="admin">
+                    <input class="form-input" name="id" type="text" hidden="true" value="<%=usuario.idUser%>">
+                    <p class="instruction">Usuario:</p>
+                    <input class="form-input" name="usuario" type="text" value="<%=usuario.usuario%>">
+                    <p class="instruction">Email:</p>
+                    <input class="form-input" name="email" type="email" value="<%=usuario.email%>">
+                    <p class="instruction">Nombre:</p>
+                    <input class="form-input" name="nombre" type="text" value="<%=usuario.nombre%>">
+                    <p class="instruction">Password:</p>
+                    <input class="form-input" type="password" name="password" value="<%=usuario.password%>">
+                    <div style="display: flex; justify-content: space-around;">
+                        <input type="radio" name="rol" id="Admin" <%if(usuario.rol==1){%>checked="true"<%}%> value="1">
+                        <label for="Admin">Administrador</label>
+                        <input type="radio" name="rol" id="User" <%if(usuario.rol==2){%>checked="true"<%}%>  value="2">
+                        <label for="User">Usuario</label>
+                    </div>
+                    <div class="action-btns-container">
+                        <button class="btn form-input" type="submit" id="modify">Modificar Cuenta</button>
+                        <a class="btn form-input" id="delete" href="">Eliminar Cuenta</a>
+                    </div>
+                    <a href="administrador.jsp" class="btn form-input" style="display: block;">Volver</a>
+                </form>
+            </div>
+    </body>
+</html>

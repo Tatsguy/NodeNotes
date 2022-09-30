@@ -63,6 +63,14 @@ router.get('/Notas',async(req,res)=>{
     res.render('notas',{usuario,notas});
 })
 
+router.get('/Edit/:id', async(req,res)=>{
+    const idUsuario=1
+    console.log(idUsuario)
+    const usuario = await user.findOne({where:{idUser:idUsuario}})
+    console.log(usuario)
+    res.render('editar-usuario',{usuario})
+})
+
 router.put('/operacion-notas', async (req,res) => {
     let nota = req.query;
     console.log('conectando con ajax: '+JSON.stringify(nota));
