@@ -36,7 +36,7 @@ router.post('/SignUp',async(req,res)=>{
 })
 
 router.post('/Notas', async(req,res)=>{
-    const usuario = await user.findOne({where:{usuario:req.body.user,password:req.body.password}})
+    const usuario = await user.findOne({where:{usuario:req.body.user, password:req.body.password}})
     const notas = await note.findAll({where:{idUser:usuario.idUser}})
     res.render('notas',{usuario,notas})
 })
@@ -64,11 +64,13 @@ router.get('/Notas',async(req,res)=>{
 })
 
 router.get('/Edit/:id', async(req,res)=>{
-    const idUsuario=1
-    console.log(idUsuario)
-    const usuario = await user.findOne({where:{idUser:idUsuario}})
-    console.log(usuario)
+    const usuario = await user.findOne({where:{idUser:req.params.id}})
     res.render('editar-usuario',{usuario})
+})
+
+router.get('/Delete/:id', async(req,res)=>{
+    await user.destroy({where:{idUser:req.params.id}})
+    res.redirect('/Admin')
 })
 
 router.put('/operacion-notas', async (req,res) => {

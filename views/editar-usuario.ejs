@@ -11,9 +11,9 @@
         <!--Editar Perfil---------------------------------------------------------------->
         <div class="update-form-container container activated" id="update-form-container">
             <div class="form-container-inner" style="background-color: white; width: 50%; padding: 15px; border-radius: 10px">
-                <form action="UpdateUser" id="userForm" method="post" class="form" style="color:black;">
+                <form action="/users/Modificar/" id="userForm" method="post" class="form" style="color:black;">
                     <input class="form-input" name="admin" type="text" hidden="true" value="admin">
-                    <input class="form-input" name="id" type="text" hidden="true" value="<%=usuario.idUser%>">
+                    <input class="form-input" name="id" type="hidden" value="<%=usuario.idUser%>">
                     <p class="instruction">Usuario:</p>
                     <input class="form-input" name="usuario" type="text" value="<%=usuario.usuario%>">
                     <p class="instruction">Email:</p>
@@ -30,7 +30,7 @@
                     </div>
                     <div class="action-btns-container">
                         <button class="btn form-input" type="submit" id="modify">Modificar Cuenta</button>
-                        <a class="btn form-input" id="delete" href="">Eliminar Cuenta</a>
+                        <a class="btn form-input" id="delete" href="/users/Delete/<%=usuario.idUser%>">Eliminar Cuenta</a>
                     </div>
                     <a href="administrador.jsp" class="btn form-input" style="display: block;">Volver</a>
                 </form>
