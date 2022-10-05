@@ -24,7 +24,7 @@
                     <form action="/users/Notas" method="post" name="myForm" onsubmit="return validate();">      
                         <img src="/static/images/index/Logo.png" alt="">
                         <div class="usuario-caja">
-                            <input type="text" name="user" placeholder="Ingrese su usuario" id="usuario"> <br>
+                            <input type="text" name="usuario" placeholder="Ingrese su usuario" id="usuario"> <br>
                             <span class="noVisible" id="spanUsuario">Ingrese su usuario</span>
                         </div>
 
@@ -37,6 +37,7 @@
                             <button type="submit">Ingresar</button>
                             <p style="margin: 10px 0; font-size: 14px">¿No tienes cuenta? <a style="text-decoration: none; color: var(--boton-azul)" href="sing-in.jsp">Registrate</a></p>
                         </div>
+                        <span style="margin: 0.75rem auto; color: red;" id="spanData"><%=mensaje%></span>
                     </form>
                 </div>
             </div>

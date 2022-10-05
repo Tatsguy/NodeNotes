@@ -36,9 +36,13 @@ router.post('/SignUp',async(req,res)=>{
 })
 
 router.post('/Notas', async(req,res)=>{
-    const usuario = await user.findOne({where:{usuario:req.body.user, password:req.body.password}})
-    const notas = await note.findAll({where:{idUser:usuario.idUser}})
-    res.render('notas',{usuario,notas})
+    const usuario = await user.findOne({where:{usuario:req.body.usuario, password:req.body.password}})
+    if(!usuario){
+        res.render('login',{mensaje:"El usuario o la contraseña no existen"})
+    }else{
+        const notas = await note.findAll({where:{idUser:usuario.idUser}})
+        res.render('notas',{usuario,notas})
+    }
 })
 
 router.get('/Admin',(req,res)=>{
@@ -70,7 +74,12 @@ router.get('/Edit/:id', async(req,res)=>{
 
 router.get('/Delete/:id', async(req,res)=>{
     await user.destroy({where:{idUser:req.params.id}})
-    res.redirect('/Admin')
+    res.redirect('../Admin')
+})
+
+router.post('/Modificar',async(req,res)=>{
+    await user.update(req.body,{where:{idUser:req.body.idUser}})
+    res.redirect('../Admin')
 })
 
 router.put('/operacion-notas', async (req,res) => {

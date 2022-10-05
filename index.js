@@ -19,7 +19,7 @@ app.use(session({
 
 app.use('/users',userRoutes)
 app.get('/',(req,res)=> res.render('index'))
-app.get('/Login',(req,res)=> res.render('login'))
+app.get('/Login',(req,res)=> res.render('login',{mensaje:null}))
 app.get('/SignIn',(req,res)=> res.render('sing-in',{mensaje:null}))
 
 app.listen(PORT,()=>{
