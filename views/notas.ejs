@@ -22,7 +22,11 @@
             <!--SIDEBAR--------------------------------------------------------------->
             <div class="notes__sidebar">
                 <div class="user">
-                    <img class="user-avatar" src="/static/images/notas/usuario-icono.png"/>
+                    <%if(usuario.fotoPerfil){%>
+                        <img class="user-avatar" src="/static/profiles/<%=usuario.fotoPerfil%>"/>
+                    <%}else{%>
+                        <img class="user-avatar" src="/static/images/notas/usuario-icono.png"/>
+                    <%}%>
                     <div id="nickname">
                         <p id="user">Bienvenido <%=usuario.usuario%></p>
                         <p class="tool-name" id="updateUser">Ver perfil</p>
@@ -38,7 +42,7 @@
                         </a>
                     </div>
                     <div class="tool">
-                        <a href="/users/Admin"><i class="ri-user-settings-line"></i>
+                        <a href="/users/Admin/<%=usuario.idUser%>"><i class="ri-user-settings-line"></i>
                             <p class="tool-name">Administración</p>
                         </a>
                     </div>                                 
@@ -91,11 +95,11 @@
             </div>
             <!--Editar Perfil---------------------------------------------------------------->
             <div class="update-form-container container" id="update-form-container">
-                <div class="form-container-inner" style="background-color: white; width: 50%; padding: 15px; border-radius: 10px" enctype="multipart/form-data">
-                    <form action="UpdateUser" id="userForm" method="post" class="form" style="color:black;">
+                <div class="form-container-inner" style="background-color: white; width: 50%; padding: 15px; border-radius: 10px">
+                    <form action="/users/Modificar/" id="userForm" method="post" class="form" style="color:black;" enctype="multipart/form-data">
                         <p class="instruction">Foto:</p>
-                        <input type="file" id="myfile" accept="image/png, .jpeg, .jpg" name="myfile">
-                        <input class="form-input" name="id" type="text" hidden="true" value="<%=usuario.idUser%>" id="txtId">
+                        <input type="file" accept="image/png, .jpeg, .jpg" name="fotoPerfil">
+                        <input class="form-input" name="idUser" type="hidden" value="<%=usuario.idUser%>" id="txtId">
                         <p class="instruction">Usuario:</p>
                         <input class="form-input" name="usuario" type="text" value="<%=usuario.usuario%>">
                         <p class="instruction">Email:</p>
