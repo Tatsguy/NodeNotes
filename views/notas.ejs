@@ -96,7 +96,7 @@
             <!--Editar Perfil---------------------------------------------------------------->
             <div class="update-form-container container" id="update-form-container">
                 <div class="form-container-inner" style="background-color: white; width: 50%; padding: 15px; border-radius: 10px">
-                    <form action="/users/Modificar/" id="userForm" method="post" class="form" style="color:black;" enctype="multipart/form-data">
+                    <form action="/users/ModificarUser/" id="userForm" method="post" class="form" style="color:black;" enctype="multipart/form-data">
                         <p class="instruction">Foto:</p>
                         <input type="file" accept="image/png, .jpeg, .jpg" name="fotoPerfil">
                         <input class="form-input" name="idUser" type="hidden" value="<%=usuario.idUser%>" id="txtId">
@@ -123,13 +123,13 @@
             <!--CREACI�N DE NOTAS----------------------------------------------------->
             <div id="app">
                 <button class="add-note" type="button">+</button>
-                <script src="../static/js/notes.js"></script>
+                <script src="/static/js/notes.js"></script>
                 <!--CICLO PARA CARGAR LAS NOTAS DE UN USUARIO EN ESPECIFICO-->
                 <%notas.forEach((nota) => {%>
                     <script>addNotesFromDB(<%- JSON.stringify(nota)%>)</script>
                 <%})%>
             </div>
         </div>
-        <script src="../static/js/reloj.js"></script>
+        <script src="/static/js/reloj.js"></script>
     </body>
 </html>

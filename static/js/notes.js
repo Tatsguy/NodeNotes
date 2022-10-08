@@ -54,8 +54,8 @@ function createNoteElement(id, content, color, fondo) {
     //CREACIÓN DE IMAGENES
     const gotitaImg = document.createElement("img");
     const relojImg = document.createElement("img");
-    gotitaImg.setAttribute("src", "../static/images/notas/gotita-icono.jpg");
-    relojImg.setAttribute("src", "../static/images/notas/reloj-icono.png");
+    gotitaImg.setAttribute("src", "/static/images/notas/gotita-icono.jpg");
+    relojImg.setAttribute("src", "/static/images/notas/reloj-icono.png");
     caja.classList.add("funciones-nota");
     gotita.classList.add("icono-gotita");
     reloj.classList.add("icono-reloj");

@@ -8,9 +8,9 @@
         <meta name="copyright" content="Remember">
         <meta name="description" content="Interfaz de administración de usuarios">
         <meta name="keywords" content="Administrador, notas, Remember">
-        <link rel="shortcut icon" href="../static/images/logoV.png" type="image/x-icon">
+        <link rel="shortcut icon" href="/static/images/logoV.png" type="image/x-icon">
         <title>Remember - Administrador</title>
-        <link rel="stylesheet" href="../../static/css/administrador.css">
+        <link rel="stylesheet" href="/static/css/administrador.css">
         <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     </head>
 
@@ -19,7 +19,7 @@
             <!--SIDEBAR-------------------------------------------------->
             <div class="notes__sidebar">
                 <div class="user">
-                    <img class="user-avatar" src="../../static/images/notas/usuario-icono.png"/>
+                    <img class="user-avatar" src="/static/images/notas/usuario-icono.png"/>
                 </div>
                 <div class="tools">
                     <button class="closeIcon">
@@ -93,7 +93,11 @@
                                         <td><%=dato.nombre%></td>
                                         <td><%=dato.usuario%></td>
                                         <td><%=dato.email%></td>
-                                        <td><%=dato.rol%></td>
+                                        <%if(dato.rol==1){%>
+                                        <td>Administrador</td>
+                                        <%}else{%>
+                                        <td>Usuario</td>
+                                        <%}%>
                                         <td><%=dato.password%></td>
                                         <td><a style="color: red;" href="/users/Delete/<%=dato.idUser%>">BORRAR</a></td>
                                     </tr>
@@ -109,7 +113,7 @@
                 </div>
             </div>
         </div>
-        <script src="../../static/js/reloj.js"></script>
+        <script src="/static/js/reloj.js"></script>
         <script>
             document.addEventListener("DOMContentLoaded", () => {
                 const rows = document.querySelectorAll("tr[data-href]");

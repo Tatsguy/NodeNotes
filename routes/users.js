@@ -62,16 +62,9 @@ router.get("/Admin/:userId?", loadUser, (req, res) => {
   }
 });
 
-router.get("/Notas", async (req, res) => {
-  const usuario = {
-    idUser: 21,
-    nombre: "Manolo",
-    usuario: "Pepito",
-    email: "sofiaaahernanadez70@gmail.com",
-    password: "1234",
-    rol: 2,
-  };
-  let notas = await note.findAll({ where: { idUser: usuario.idUser } });
+router.get("/Notas/:userId?", async (req, res) => {
+  let notas = await note.findAll({ where: { idUser: req.params.userId } });
+  let usuario = await user.findOne({ where: { idUser: req.params.userId } });
   res.render("notas", { usuario, notas });
 });
 
@@ -85,13 +78,20 @@ router.get("/Delete/:id", async (req, res) => {
   res.redirect("../Admin");
 });
 
-router.post("/Modificar", subirArchivo(), async (req, res) => {
+router.post("/ModificarUser", subirArchivo(), async (req, res) => { //Modificar nuestro propio user
   if (req.file) req.body.fotoPerfil = req.file.originalname;
   await user.update(req.body, { where: { idUser: req.body.idUser } });
-  res.redirect("../Admin");
+  const usuario = await user.findOne({ where: { idUser: req.body.idUser } });
+  res.redirect("../Notas/"+usuario.idUser)
 });
 
-router.put("/operacion-notas", async (req, res) => {
+router.post("/ModificarAdmin",async (req,res)=>{ //Modificar como administrador
+  await user.update(req.body, { where: { idUser: req.body.idUser } });
+  const usuario = await user.findOne({ where: { idUser: req.body.idUser } });
+  res.redirect("../Admin/1")
+})
+
+router.put("/operacion-notas", async (req, res) => { //Actualizacion/creacion/borrado de notas
   let nota = req.query;
   console.log("conectando con ajax: " + JSON.stringify(nota));
   res.sendStatus(200);
