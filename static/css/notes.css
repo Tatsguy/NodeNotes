@@ -77,7 +77,6 @@ td>a{
     height: 150px;
     background-color: var(--blanco);
     border-radius: 100%;
-    background-image: url("../images/notas/usuario-icono.png");
     background-size: contain;
 }
 

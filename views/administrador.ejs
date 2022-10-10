@@ -19,14 +19,18 @@
             <!--SIDEBAR-------------------------------------------------->
             <div class="notes__sidebar">
                 <div class="user">
-                    <img class="user-avatar" src="/static/images/notas/usuario-icono.png"/>
+                    <%if(usuario.fotoPerfil){%>
+                        <img class="user-avatar" src="/static/profiles/<%=usuario.fotoPerfil%>"/>
+                    <%}else{%>
+                        <img class="user-avatar" src="/static/images/notas/usuario-icono.png"/>
+                    <%}%>
                 </div>
                 <div class="tools">
                     <button class="closeIcon">
                         <i class="ri-close-line"></i>
                     </button>
                     <div class="tool">
-                        <a href="/"><i class="ri-home-line"></i>
+                        <a href="../"><i class="ri-home-line"></i>
                             <p class="tool-name">Ir a inicio</p>
                         </a>
                     </div>
@@ -36,7 +40,7 @@
                         </a>
                     </div>
                     <div class="tool">
-                        <a href="/"><i class="ri-door-open-line"></i>
+                        <a href="/users/Cerrar-Sesion"><i class="ri-door-open-line"></i>
                             <p class="tool-name">Cerrar sesión</p>
                         </a>
                     </div>
@@ -68,7 +72,7 @@
 
             <!--TABLAS---------------------------------------------------->
             <div id="app-admin">
-                <h1>Bienvenido</h1>
+                <h1>Bienvenido <%=usuario.usuario%></h1>
                 <div class="administrator">
                     <div class="table-container">
                         <h2>Usuarios</h2>
@@ -109,7 +113,7 @@
                 </div>
 
                 <div class="admin-tools">
-                    <a href="sing-in.jsp" class="admin-btn">Añadir Usuario</a>
+                    <a href="../../SignIn" class="admin-btn">Añadir Usuario</a>
                 </div>
             </div>
         </div>

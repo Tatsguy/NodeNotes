@@ -17,7 +17,11 @@
         <!--REGISTRARSE-->
         <div class="fondo">
             <div class="contenido">
-                <a id="back-button" href="/">&lt;</a>
+                <%if(usuario){%>
+                    <a id="back-button" href="/users/Admin">&lt;</a>
+                <%}else{%>
+                    <a id="back-button" href="/">&lt;</a>
+                <%}%>
                 <div class="imagen">
                     <img src="/static/images/index/Logo.png" id="logo" alt="">
                 </div>
@@ -36,12 +40,14 @@
 
                                 <input type="password" placeholder="Crea una contraseña" name="password" id="Password">
                                 <span class="noVisible" id="spanPassword">Ingrese su contraseña</span>
+                                <%if(usuario){%>
                                 <div style="display: flex; justify-content: space-around;">
                                     <input type="radio" name="rol" id="Admin" value="1">
                                     <label for="Admin">Administrador</label>
                                     <input type="radio" name="rol" id="User" checked="true" value="2">
                                     <label for="User">Usuario</label>
                                 </div>
+                                <%}%>
                                 <input class="button" type="submit" value="Comenzar"/>
                                 <span class="siVisible" style="margin: 0.75rem auto;" id="spanData"><%=mensaje%></span>
                             </div>

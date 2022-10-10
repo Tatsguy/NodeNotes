@@ -6,14 +6,6 @@ var subirArchivo = require("../middlewares/subirArchivos");
 
 //Todas las rutas aqui comienzan con users
 
-//Que hacer si se trata de entrar desde fuera
-router.get("/Crear", (req, res) => {
-  res.redirect("/");
-});
-router.get("/Login", (req, res) => {
-  res.redirect("/");
-});
-
 //Metodos par
 router.post("/SignUp", async (req, res) => {
   var userForm = {
@@ -21,7 +13,7 @@ router.post("/SignUp", async (req, res) => {
     usuario: req.body.usuario,
     email: req.body.email,
     password: req.body.password,
-    rol: req.body.rol,
+    rol: 2
   };
   const usuario = await user.findOne({ where: { usuario: userForm.usuario } });
   const email = await user.findOne({ where: { email: userForm.email } });
@@ -30,11 +22,18 @@ router.post("/SignUp", async (req, res) => {
   } else if (email) {
     res.render("sing-in", { mensaje: "Email ya registrado" });
   } else {
-    await user.create(userForm);
-    const usuarioRegistrado = await user.findOne({
-      where: { usuario: req.body.usuario },
-    });
-    res.redirect("/users/Notas");
+    if(req.session.idUser){
+      userForm.rol=req.body.rol
+      await user.create(userForm);
+      res.redirect("/users/Admin");            
+    }else{
+      await user.create(userForm);
+      const usuarioRegistrado = await user.findOne({
+        where: { usuario: req.body.usuario },
+      });
+      req.session.idUser = usuarioRegistrado.idUser
+      res.redirect("/users/Notas");
+    }
   }
 });
 
@@ -46,27 +45,38 @@ router.post("/Notas", async (req, res) => {
     res.render("login", { mensaje: "El usuario o la contraseña no existen" });
   } else {
     const notas = await note.findAll({ where: { idUser: usuario.idUser } });
+    req.session.idUser = usuario.idUser
     res.render("notas", { usuario, notas });
   }
 });
 
-router.get("/Admin/:userId?", loadUser, (req, res) => {
-  if (req.user) {
+router.get("/Notas", async (req, res) => {
+  if(req.session.idUser){
+    let notas = await note.findAll({ where: { idUser: req.session.idUser } });
+    let usuario = await user.findOne({ where: { idUser: req.session.idUser } });
+    res.render("notas", { usuario, notas });
+  }else{
+    res.redirect('../')
+  }
+});
+
+router.get("/Admin", async (req, res) => {
+  if(req.session.idUser){
+    let usuario = await user.findOne({ where: { idUser: req.session.idUser } });    
     user.findAll().then((datos) => {
-        res.render("administrador", { datos });
+        res.render("administrador", { datos,usuario});
       }).catch((err) => {
         console.error("Error: " + err);
       });
   }else{
-    res.render('index')
+    res.redirect('../')
   }
 });
 
-router.get("/Notas/:userId?", async (req, res) => {
-  let notas = await note.findAll({ where: { idUser: req.params.userId } });
-  let usuario = await user.findOne({ where: { idUser: req.params.userId } });
-  res.render("notas", { usuario, notas });
-});
+router.get("/Cerrar-Sesion",async(req,res)=>{
+  req.session.idUser = null;
+  res.redirect('../')
+})
 
 router.get("/Edit/:id", async (req, res) => {
   const usuario = await user.findOne({ where: { idUser: req.params.id } });

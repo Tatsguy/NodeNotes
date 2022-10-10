@@ -12,15 +12,24 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 app.use(session({
-    secret: '69696969',
-    resave : true,
-    saveUninitialized: true
-}))
+    secret: "123",
+    saveUninitialized: true,
+    resave: true,
+    cookie:{
+      maxAge: 60000,
+    }
+  }));
 
 app.use('/users',userRoutes)
 app.get('/',(req,res)=> res.render('index'))
 app.get('/Login',(req,res)=> res.render('login',{mensaje:null}))
-app.get('/SignIn',(req,res)=> res.render('sing-in',{mensaje:null}))
+app.get('/SignIn',(req,res)=> {
+  if(req.session.idUser){
+    res.render('sing-in',{mensaje:null,usuario:req.session.idUser})    
+  }else{
+    res.render('sing-in',{mensaje:null,usuario:null})
+  }
+})
 
 app.listen(PORT,()=>{
     console.log(`Server Running on port: http://localhost:${PORT}`)

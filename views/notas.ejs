@@ -42,12 +42,14 @@
                         </a>
                     </div>
                     <div class="tool">
-                        <a href="/users/Admin/<%=usuario.idUser%>"><i class="ri-user-settings-line"></i>
+                    <%if(usuario.rol==1){%>
+                        <a href="/users/Admin"><i class="ri-user-settings-line"></i>
                             <p class="tool-name">Administración</p>
                         </a>
+                    <%}%>
                     </div>                                 
                     <div class="tool">
-                        <a href="/"><i class="ri-door-open-line"></i>
+                        <a href="/users/Cerrar-Sesion"><i class="ri-door-open-line"></i>
                             <p class="tool-name">Cerrar sesión</p>
                         </a>
                     </div>
