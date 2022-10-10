@@ -14,10 +14,7 @@ app.use(express.urlencoded({extended:true}));
 app.use(session({
     secret: "123",
     saveUninitialized: true,
-    resave: true,
-    cookie:{
-      maxAge: 60000,
-    }
+    resave: true
   }));
 
 app.use('/users',userRoutes)

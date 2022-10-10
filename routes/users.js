@@ -13,7 +13,8 @@ router.post("/SignUp", async (req, res) => {
     usuario: req.body.usuario,
     email: req.body.email,
     password: req.body.password,
-    rol: 2
+    rol: 2,
+    userStatus:1
   };
   const usuario = await user.findOne({ where: { usuario: userForm.usuario } });
   const email = await user.findOne({ where: { email: userForm.email } });
@@ -23,10 +24,12 @@ router.post("/SignUp", async (req, res) => {
     res.render("sing-in", { mensaje: "Email ya registrado" });
   } else {
     if(req.session.idUser){
+      console.log("Eres Admin")
       userForm.rol=req.body.rol
       await user.create(userForm);
       res.redirect("/users/Admin");            
     }else{
+      console.log("Bienvenudo")
       await user.create(userForm);
       const usuarioRegistrado = await user.findOne({
         where: { usuario: req.body.usuario },
@@ -37,16 +40,21 @@ router.post("/SignUp", async (req, res) => {
   }
 });
 
-router.post("/Notas", async (req, res) => {
+router.post("/Login", async (req, res) => {
   const usuario = await user.findOne({
     where: { usuario: req.body.usuario, password: req.body.password },
   });
   if (!usuario) {
-    res.render("login", { mensaje: "El usuario o la contraseña no existen" });
+    res.render("login", { mensaje: "El usuario o la contraseña no existen" })
   } else {
-    const notas = await note.findAll({ where: { idUser: usuario.idUser } });
-    req.session.idUser = usuario.idUser
-    res.render("notas", { usuario, notas });
+    if(usuario.userStatus==0){
+      res.render("login", { mensaje: "El usuario que ingresaste esta dado de baja" })
+    }else{
+      req.session.idUser = usuario.idUser
+      req.session.rol = usuario.rol
+      if(usuario.rol==2) res.redirect("../users/Notas")
+      else res.redirect("../users/Admin")
+    }
   }
 });
 
@@ -62,12 +70,14 @@ router.get("/Notas", async (req, res) => {
 
 router.get("/Admin", async (req, res) => {
   if(req.session.idUser){
-    let usuario = await user.findOne({ where: { idUser: req.session.idUser } });    
-    user.findAll().then((datos) => {
-        res.render("administrador", { datos,usuario});
-      }).catch((err) => {
-        console.error("Error: " + err);
-      });
+    if(req.session.rol==1){
+      let usuario = await user.findOne({ where: { idUser: req.session.idUser } });     
+      let datos = await user.findAll({ where: { userStatus:1 } });   
+      let bajas = await user.findAll({ where: { userStatus:0 } }); 
+      res.render("administrador", { datos,usuario,bajas});
+    }else{
+      res.redirect("../users/Notas")
+    }
   }else{
     res.redirect('../')
   }
@@ -75,6 +85,7 @@ router.get("/Admin", async (req, res) => {
 
 router.get("/Cerrar-Sesion",async(req,res)=>{
   req.session.idUser = null;
+  req.session.rol = null;
   res.redirect('../')
 })
 
@@ -88,17 +99,25 @@ router.get("/Delete/:id", async (req, res) => {
   res.redirect("../Admin");
 });
 
+router.get("/Baja/:id", async (req, res) => {
+  await user.update({userStatus:0},{ where: { idUser: req.params.id } });
+  res.redirect("../Admin");
+});
+
+router.get("/Activar/:id", async (req, res) => {
+  await user.update({userStatus:1},{ where: { idUser: req.params.id } });
+  res.redirect("../Admin");
+});
+
 router.post("/ModificarUser", subirArchivo(), async (req, res) => { //Modificar nuestro propio user
   if (req.file) req.body.fotoPerfil = req.file.originalname;
   await user.update(req.body, { where: { idUser: req.body.idUser } });
-  const usuario = await user.findOne({ where: { idUser: req.body.idUser } });
-  res.redirect("../Notas/"+usuario.idUser)
+  res.redirect("../Notas")
 });
 
 router.post("/ModificarAdmin",async (req,res)=>{ //Modificar como administrador
   await user.update(req.body, { where: { idUser: req.body.idUser } });
-  const usuario = await user.findOne({ where: { idUser: req.body.idUser } });
-  res.redirect("../Admin/1")
+  res.redirect("../Admin/")
 })
 
 router.put("/operacion-notas", async (req, res) => { //Actualizacion/creacion/borrado de notas

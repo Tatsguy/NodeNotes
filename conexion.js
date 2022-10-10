@@ -2,7 +2,7 @@ var sequelize = require("sequelize");
 var usuarioModelo  = require("./models/usuario")
 var notasModelo = require("./models/notas")
 
-var conexion = new sequelize('nodeNotes','root','JevG0304',{
+var conexion = new sequelize('finalnotes','root','JevG0304',{
     host: 'localhost',
     dialect: 'mysql'
 })

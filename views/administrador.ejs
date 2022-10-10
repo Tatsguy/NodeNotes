@@ -75,7 +75,7 @@
                 <h1>Bienvenido <%=usuario.usuario%></h1>
                 <div class="administrator">
                     <div class="table-container">
-                        <h2>Usuarios</h2>
+                        <h2>Usuarios Activos</h2>
                         <div class="table-scroll">
                             <table class="content-table">
                                 <thead>
@@ -103,9 +103,51 @@
                                         <td>Usuario</td>
                                         <%}%>
                                         <td><%=dato.password%></td>
-                                        <td><a style="color: red;" href="/users/Delete/<%=dato.idUser%>">BORRAR</a></td>
+                                        <td><a style="color: red;" href="/users/Delete/<%=dato.idUser%>">BORRAR</a>
+                                            <a style="color: red;" href="/users/Baja/<%=dato.idUser%>">DAR DE BAJA</a>
+                                        </td>
                                     </tr>
                                     <%})%>
+                                </tbody>
+                            </table>
+                            <br><br>
+                            <h2>Usuarios Suspendidos</h2>
+                            <table class="content-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>NOMBRE</th>
+                                        <th>USUARIO</th>
+                                        <th>E-MAIL</th>
+                                        <th>ROL</th>
+                                        <th>CONTRASEÑA</th>
+                                        <th>ACCIONES</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <%if(bajas[0]==null){%>
+                                    <tr style="cursor: pointer;">
+                                        <td colspan="7">No hay datos</td>
+                                    </tr>
+                                    <%}else{%>
+                                    <% bajas.forEach((baja) => {%>
+                                    <tr style="cursor: pointer;" data-href="/users/Edit/<%=baja.idUser%>">
+                                        <td><%=baja.idUser%></td>
+                                        <td><%=baja.nombre%></td>
+                                        <td><%=baja.usuario%></td>
+                                        <td><%=baja.email%></td>
+                                        <%if(baja.rol==1){%>
+                                        <td>Administrador</td>
+                                        <%}else{%>
+                                        <td>Usuario</td>
+                                        <%}%>
+                                        <td><%=baja.password%></td>
+                                        <td><a style="color: red;" href="/users/Delete/<%=baja.idUser%>">BORRAR</a>
+                                            <a style="color: green;" href="/users/Activar/<%=baja.idUser%>">ACTIVAR</a>
+                                        </td>
+                                    </tr>
+                                    <%})}%>
                                 </tbody>
                             </table>
                         </div>

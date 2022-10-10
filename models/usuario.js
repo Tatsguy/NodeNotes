@@ -23,6 +23,9 @@ var usuarioModelo=(conexion)=>{
         },
         fotoPerfil:{
             type: sequelize.STRING
+        },
+        userStatus:{
+            type: sequelize.INTEGER
         }
     })
     return usuarioSchema
