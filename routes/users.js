@@ -24,12 +24,10 @@ router.post("/SignUp", async (req, res) => {
     res.render("sing-in", { mensaje: "Email ya registrado" });
   } else {
     if(req.session.idUser){
-      console.log("Eres Admin")
       userForm.rol=req.body.rol
       await user.create(userForm);
       res.redirect("/users/Admin");            
     }else{
-      console.log("Bienvenudo")
       await user.create(userForm);
       const usuarioRegistrado = await user.findOne({
         where: { usuario: req.body.usuario },
