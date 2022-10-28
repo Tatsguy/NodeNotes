@@ -23,13 +23,10 @@ app.use('/users',userRoutes)
 app.use('/api',apiNotes)
 
 app.get('/',(req,res)=> res.render('index'))
+app.get('/Acercade',(req,res)=> res.render('acerca-de'))
 app.get('/Login',(req,res)=> res.render('login',{mensaje:null}))
 app.get('/SignIn',(req,res)=> {
-  if(req.session.idUser){
-    res.render('sing-in',{mensaje:null,usuario:req.session.idUser})    
-  }else{
-    res.render('sing-in',{mensaje:null,usuario:null})
-  }
+    res.render('sing-in',{mensaje:null})
 })
 
 app.listen(PORT,()=>{

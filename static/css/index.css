@@ -73,7 +73,7 @@ body{
 }
 
 .primera-fila{
-    background-image: url(../images/index/icono-fondo.png);
+    background-image: url(/static/images/index/icono-fondo.png);
     background-position: center;
     background-size: cover;
 }
@@ -81,7 +81,7 @@ body{
 /*SEGUNDA PARTE---------------------------------*/
 .segunda-fila, .tercera-fila{
     margin: 7rem 0;
-    background-image: url(../images/index/icono-fondo.png);
+    background-image: url(/static/images/index/icono-fondo.png);
     background-position: center;
     background-size: contain;
 }

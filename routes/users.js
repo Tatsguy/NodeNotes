@@ -23,7 +23,7 @@ router.post("/SignUp", async (req, res) => {
   } else if (email) {
     res.render("sing-in", { mensaje: "Email ya registrado" });
   } else {
-    if(req.session.idUser){
+    if(req.body.rol){
       userForm.rol=req.body.rol
       await user.create(userForm);
       res.redirect("/users/Admin");            
@@ -80,6 +80,10 @@ router.get("/Admin", async (req, res) => {
     res.redirect('../')
   }
 });
+
+router.get("/Admin/SignIn", async (req, res) => {
+  res.render("adminSignIn",{mensaje:null});
+})
 
 router.get("/Cerrar-Sesion",async(req,res)=>{
   req.session.idUser = null;
